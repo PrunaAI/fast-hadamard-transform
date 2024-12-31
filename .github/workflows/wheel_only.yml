@@ -91,6 +91,7 @@ jobs:
 
       - name: Build wheel
         run: |
+          export FAST_HADAMARD_TRANSFORM_LOCAL_VERSION=cu${MATRIX_CUDA_VERSION}torch${MATRIX_TORCH_VERSION}cxx11abi${{ matrix.cxx11_abi }}
           pip install setuptools==68.0.0
           pip install ninja packaging wheel
           export PATH=/usr/local/nvidia/bin:/usr/local/nvidia/lib64:$PATH

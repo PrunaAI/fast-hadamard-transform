@@ -13,7 +13,7 @@ jobs:
       matrix:
           os: [ubuntu-20.04]
           python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-          torch-version: ['2.4.0', '2.4.1']
+          torch-version: ['2.4.0', '2.4.1', '2.5.1']
           cuda-version: ['11.8.0', '12.1.0']
           cxx11_abi: ['FALSE', 'TRUE']
           exclude:
@@ -75,8 +75,8 @@ jobs:
           pip install lit
           export TORCH_CUDA_VERSION=$(python -c "
           import os
-          minv = {'1.12': 113, '1.13': 116, '2.0': 117, '2.1': 118, '2.2': 118, '2.4': 118}
-          maxv = {'1.12': 116, '1.13': 117, '2.0': 118, '2.1': 121, '2.2': 121, '2.4': 124}
+          minv = {'1.12': 113, '1.13': 116, '2.0': 117, '2.1': 118, '2.2': 118, '2.4': 118, '2.5': 118}
+          maxv = {'1.12': 116, '1.13': 117, '2.0': 118, '2.1': 121, '2.2': 121, '2.4': 124, '2.5': 124}
           torch_version = os.environ['MATRIX_TORCH_VERSION']
           cuda_version = int(os.environ['MATRIX_CUDA_VERSION'])
           result = max(min(cuda_version, maxv[torch_version]), minv[torch_version])

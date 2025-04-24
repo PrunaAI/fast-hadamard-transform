@@ -13,8 +13,8 @@ jobs:
       matrix:
           os: [ubuntu-20.04]
           python-version: ['3.9', '3.10', '3.11', '3.12']
-          torch-version: ['2.4.0', '2.4.1', '2.5.1']
-          cuda-version: ['11.8.0', '12.1.0']
+          torch-version: ['2.7.0']
+          cuda-version: ['12.1', '12.4']
           cxx11_abi: ['FALSE', 'TRUE']
           exclude:
             - torch-version: '1.12.1'

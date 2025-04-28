@@ -107,7 +107,7 @@ jobs:
           ls dist
 
       - name: Upload Built Wheels as Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: built-wheels
           path: ./dist

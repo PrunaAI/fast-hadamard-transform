@@ -15,7 +15,7 @@ jobs:
           python-version: ['3.9', '3.10', '3.11', '3.12']
           torch-version: ['2.7.0']
           cuda-version: ['12.6.0']
-          cxx11_abi: ['FALSE', 'TRUE']
+          cxx11_abi: ['FALSE']
           exclude:
             - torch-version: '1.12.1'
               python-version: '3.11'

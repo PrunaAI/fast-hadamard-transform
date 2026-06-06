@@ -95,10 +95,12 @@ jobs:
               missing.append('maxv')
           if missing:
               known = sorted(set(minv) | set(maxv))
+              missing_keys = ', '.join(missing)
+              known_versions = ', '.join(known)
               print(
-                  f'Error: PyTorch {torch_version} is missing from the {", ".join(missing)} '
+                  f'Error: PyTorch {torch_version} is missing from the {missing_keys} '
                   f'dictionary in wheel_only.yml. '
-                  f'Configured torch versions: {", ".join(known)}. '
+                  f'Configured torch versions: {known_versions}. '
                   f'Add minv/maxv entries for {torch_version} using the cu* indices '
                   f'published for that torch release on download.pytorch.org.',
                   file=sys.stderr,

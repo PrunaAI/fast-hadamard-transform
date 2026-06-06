@@ -79,11 +79,32 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install lit
+          # get the effective cuda version based on the min and max cuda versions available for the torch version
           export TORCH_CUDA_VERSION=$(python -c "
           import os
-          minv = {'2.7': 118, '2.8': 126, '2.9': 126, '2.10': 126, '2.11': 126}
-          maxv = {'2.7': 128, '2.8': 129, '2.9': 130, '2.10': 130, '2.11': 130}
+          import sys
+          minv = {'2.7': 118, '2.8': 126, '2.9': 126, '2.10': 126, '2.11': 126, '2.12': 126}
+          maxv = {'2.7': 128, '2.8': 129, '2.9': 130, '2.10': 130, '2.11': 130, '2.12': 132}
           torch_version = os.environ['MATRIX_TORCH_VERSION']
+          
+          # make error explicit when adding new torch versions but forgetting to update minv/maxv
+          missing = []
+          if torch_version not in minv:
+              missing.append('minv')
+          if torch_version not in maxv:
+              missing.append('maxv')
+          if missing:
+              known = sorted(set(minv) | set(maxv))
+              print(
+                  f'Error: PyTorch {torch_version} is missing from the {", ".join(missing)} '
+                  f'dictionary in wheel_only.yml. '
+                  f'Configured torch versions: {", ".join(known)}. '
+                  f'Add minv/maxv entries for {torch_version} using the cu* indices '
+                  f'published for that torch release on download.pytorch.org.',
+                  file=sys.stderr,
+              )
+              sys.exit(1)
+          
           cuda_version = int(os.environ['MATRIX_CUDA_VERSION'])
           result = max(min(cuda_version, maxv[torch_version]), minv[torch_version])
           print(result)
